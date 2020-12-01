@@ -1,4 +1,4 @@
-package com.kelin.domainimpl
+package com.kelin.architecture.domainimpl
 
 import android.content.Context
 import com.kelin.architecture.data.cache.dp.AppDatabase

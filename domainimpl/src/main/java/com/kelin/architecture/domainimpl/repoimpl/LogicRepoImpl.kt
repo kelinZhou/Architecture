@@ -1,4 +1,4 @@
-package com.kelin.domainimpl.repoimpl
+package com.kelin.architecture.domainimpl.repoimpl
 
 import android.content.Context
 import com.kelin.architecture.data.api.LogicApi

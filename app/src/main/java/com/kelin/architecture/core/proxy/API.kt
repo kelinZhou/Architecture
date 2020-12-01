@@ -7,10 +7,10 @@ import com.kelin.architecture.core.proxy.executor.JobExecutor
 import com.kelin.architecture.core.proxy.executor.ThreadExecutor
 import com.kelin.architecture.core.proxy.executor.UIThread
 import com.kelin.architecture.domain.croe.repo.*
-import com.kelin.domainimpl.repoimpl.AuthRepoImpl
-import com.kelin.domainimpl.repoimpl.CommonRepoImpl
-import com.kelin.domainimpl.repoimpl.LogicRepoImpl
-import com.kelin.domainimpl.repoimpl.UpdateRepoImpl
+import com.kelin.architecture.domainimpl.repoimpl.AuthRepoImpl
+import com.kelin.architecture.domainimpl.repoimpl.CommonRepoImpl
+import com.kelin.architecture.domainimpl.repoimpl.LogicRepoImpl
+import com.kelin.architecture.domainimpl.repoimpl.UpdateRepoImpl
 
 /**
  * **描述:** 获取数据的核心类。

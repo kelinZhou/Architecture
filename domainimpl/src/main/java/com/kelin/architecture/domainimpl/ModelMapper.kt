@@ -1,4 +1,4 @@
-package com.kelin.architecture.data
+package com.kelin.architecture.domainimpl
 
 import com.kelin.architecture.data.cache.dp.UserEntity
 import com.kelin.architecture.domain.model.UserProfile

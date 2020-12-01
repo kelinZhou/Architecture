@@ -1,4 +1,4 @@
-package com.kelin.domainimpl
+package com.kelin.architecture.domainimpl
 
 import com.kelin.architecture.data.cache.dp.AppDatabase
 import com.kelin.architecture.domain.cache.UserCache

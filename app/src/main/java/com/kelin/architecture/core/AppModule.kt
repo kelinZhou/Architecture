@@ -12,7 +12,7 @@ import com.kelin.architecture.core.proxy.API
 import com.kelin.architecture.core.proxy.ProxyFactory
 import com.kelin.architecture.tools.statistics.StatisticsHelper
 import com.kelin.architecture.util.StyleHelper
-import com.kelin.domainimpl.Domain
+import com.kelin.architecture.domainimpl.Domain
 import java.util.*
 import kotlin.collections.ArrayList
 

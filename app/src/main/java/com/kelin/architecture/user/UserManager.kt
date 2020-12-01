@@ -2,7 +2,7 @@ package com.kelin.architecture.user
 
 import com.kelin.architecture.domain.cache.UserCache
 import com.kelin.architecture.domain.model.UserProfile
-import com.kelin.domainimpl.UserCacheImpl
+import com.kelin.architecture.domainimpl.UserCacheImpl
 
 
 /**
