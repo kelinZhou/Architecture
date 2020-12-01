@@ -10,7 +10,7 @@ import <#include "ResponsePackage.ftl">.${responseName}
 </#if>
 import <#include "PackageName.ftl">.R
 <#if (itemClickable!false)>
-import <#include "PackageName.ftl">.utils.ToastUtil
+import <#include "PackageName.ftl">.util.ToastUtil
 </#if>
 <#if (includeCppSupport!false) && generateItemLayout>
 import kotlinx.android.synthetic.main.${itemLayoutName}.view.*

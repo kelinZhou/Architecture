@@ -60,7 +60,7 @@ class ${pageName}Fragment : ItemListFragmentPresenter<${pageName}Delegate, ${pag
         }
     </#if>
 
-    <#if (isEnablePage && (isListResponse!true))>
+    <#if (isEnablePage && (!isListResponse))>
         override fun checkIfGotAllData(data: <#include "ResponseBody.ftl">): Boolean {
             TODO("not implemented")
         }
