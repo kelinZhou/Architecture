@@ -1,7 +1,6 @@
 package com.kelin.domainimpl
 
 import com.kelin.architecture.data.cache.dp.AppDatabase
-import com.kelin.architecture.data.mapToUserProfile
 import com.kelin.architecture.domain.cache.UserCache
 import com.kelin.architecture.domain.model.UserProfile
 
