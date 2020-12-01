@@ -1,0 +1,1 @@
+<#if (haveResponse!false)><#if (isListResponse!false)>List<${responseName}><#else>${responseName}</#if><#else><#if (isListResponse!false)>List<${responseType}><#else>${responseType}</#if></#if>

@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<template
+    format="5"
+    revision="5"
+    name="Auto Common Presenter + Delegate"
+    minApi="9"
+    minBuildApi="14"
+    description="Creates a new CommonFragmentPresenter">
+
+    <category value="Activity" />
+    <formfactor value="Mobile" />
+
+    <parameter
+        id="pageName"
+        name="Presenter Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="LiLuoBo"
+        help="The name of the presenter class to create" />
+
+    <parameter
+        id="generateLayout"
+        name="Generate Layout File"
+        type="boolean"
+        default="true"
+        help="If true, a layout file will be generated" />
+
+    <parameter
+        id="layoutName"
+        name="Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        suggest="fragment_${classToResource(pageName)}"
+        default="fragment_my"
+        visibility="generateLayout"
+        help="The name of the layout to create for the delegate" />
+
+    <parameter
+        id="changeSetupMode"
+        name="Change Setup Mode Of Proxy"
+        type="boolean"
+        default="false"
+        help="If true, you can override the setupMode of proxy" />
+
+    <parameter
+        id="setupMode"
+        name="Select Setup Mode"
+        type="enum"
+        default="SETUP_DEFAULT"
+        visibility="changeSetupMode"
+        help="Select one for the proxy" >
+        
+        <option id="SETUP_DEFAULT">default</option>
+        <option id="SETUP_TIMELY">timely</option>
+        <option id="SETUP_WITHOUT">without</option>
+        <option id="SETUP_NO_PROXY">noProxy</option>
+    </parameter>
+    
+    <parameter
+        id="packageName"
+        name="Package name"
+        type="string"
+        constraints="package"
+        default="com.higgs.luoboc.ui" />
+
+    <parameter
+        id="haveParameter"
+        name="Generate Parameter"
+        type="boolean"
+        default="false"
+        help="If true, means you have network request and need parameters" />
+        
+    <parameter
+        id="parameterName"
+        name="Parameter Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${pageName}Req"
+        visibility="haveParameter"
+        help="The name of the parameter class to create" />
+        
+    <parameter
+        id="parameterPackage"
+        name="Parameter Package"
+        type="string"
+        constraints="package"
+        suggest="${packageName}.data.domain.argument"
+        visibility="haveParameter"
+        default="com.higgs.app.data.domain.argument" />
+        
+    <parameter
+        id="parameterType"
+        name="Select Parameter Type"
+        type="enum"
+        default="Any"
+        visibility="!haveParameter"
+        help="Select one for the net work request parameter type of proxy" >
+        
+        <option id="Any">Any</option>
+        <option id="Boolean">Boolean</option>
+        <option id="String">String</option>
+        <option id="Int">Int</option>
+        <option id="Long">Long</option>
+    </parameter>
+        
+    <parameter
+        id="haveResponse"
+        name="Generate Response Body"
+        type="boolean"
+        default="false"
+        help="If true, means you have network request and have response body" />
+        
+    <parameter
+        id="responseName"
+        name="Response Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${pageName}Resp"
+        visibility="haveResponse"
+        help="The name of the response class to create" />
+        
+    <parameter
+        id="responsePackage"
+        name="Response Body Package"
+        type="string"
+        constraints="package"
+        visibility="haveResponse"
+        suggest="${packageName}.data.domain.model"
+        default="com.higgs.app.data.domain.model" />
+        
+    <parameter
+        id="responseType"
+        name="Select Response Body Type"
+        type="enum"
+        default="Any"
+        visibility="!haveResponse"
+        help="Select one for the net work request response body of proxy" >
+        
+        
+        <option id="Any">Any</option>
+        <option id="Boolean">Boolean</option>
+        <option id="String">String</option>
+        <option id="Int">Int</option>
+        <option id="Long">Long</option>
+    </parameter>
+
+    <parameter
+        id="isListResponse"
+        name="Response Body Is List"
+        type="boolean"
+        default="false"
+        help="If true, means your network response body is List" />
+        
+    <parameter
+        id="description"
+        name="Description"
+        type="string"
+        suggest="${pageName} page。"
+        default=""
+        help="The name is the presenter and the delegate class's description" />
+        
+    <!-- some visible -->
+        
+    <parameter
+        id="activityClass"
+        name="Presenter Full Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${pageName}Fragment"
+        visibility="false"/>
+
+    <!-- 128x128 thumbnails relative to template.xml -->
+    <thumbs>
+        <!-- default thumbnail is required -->
+        <thumb>template_common_fragment.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>

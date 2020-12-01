@@ -1,0 +1,4 @@
+注意事项。
+1.只能配合最新的架构使用。
+2.所有的Req对象以及Resp对象暂时不支持指定生成路径，默认会生成到domain层的包名路径下的data.domain包中。Req在argument包中，Resp在model包中。
+3.模板配置的Package Name参数必须是App层的包名路径下的ui包下的子包。
