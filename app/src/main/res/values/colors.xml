@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#EA5035</color>
+    <color name="colorPrimaryDark">#EA5035</color>
+    <color name="colorAccent">#EA5035</color>
+    <color name="theme_color">#EA5035</color>
+    <color name="theme_color_pressed">#D64025</color>
+    <color name="theme_color_disable">#FF9D8B</color>
+
+    <color name="color_style_button_2nd">#05A7F7</color>
+    <color name="color_style_button_2nd_pressed">#0888C8</color>
+    <color name="color_style_button_2nd_disable">#B2DFF6</color>
+
+    <color name="common_window_background">@color/grey_F3</color>
+    <color name="white">#FFFFFF</color>
+    <!--RecyclerView中条目被点击时的颜色,5.0以上-->
+    <color name="color_list_item_click_bg">#3000</color>
+    <!--RecyclerView中条目分割条的颜色,5.0以下-->
+    <color name="color_list_parting_line_bg">#F1F1F1</color>
+    <color name="common_text_black">#333333</color>
+    <color name="grey_b4b4b4">#B4B4B4</color>
+    <color name="grey_bg_F7F7F7">#F7F7F7</color>
+    <color name="grey_F3">#F3F3F3</color>
+    <color name="grey_333">#333333</color>
+</resources>

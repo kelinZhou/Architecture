@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="48dp"
+    android:layout_marginEnd="48dp"
+    android:background="@drawable/shape_solid_white_8r"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="28dp">
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:textColor="@color/common_text_black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:text="这里是标题"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="28dp"
+        android:gravity="center"
+        android:textColor="@color/grey_333"
+        android:textSize="14sp"
+        tools:text="您确认将企业管理员权限转移给张三？" />
+
+    <TextView
+        android:id="@+id/tvPartingLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E5E5E5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnNegative"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_white_item_bg_10r_bl"
+            android:textColor="@color/grey_999"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="取消" />
+
+        <TextView
+            android:id="@+id/tvBtnSlicer"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#E5E5E5" />
+
+
+        <Button
+            android:id="@+id/btnPositive"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_white_item_bg_10r_br"
+            android:textColor="@color/theme_color"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="确定" />
+    </LinearLayout>
+</LinearLayout>
