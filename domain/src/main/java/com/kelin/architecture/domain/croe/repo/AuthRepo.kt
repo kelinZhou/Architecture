@@ -1,5 +1,6 @@
 package com.kelin.architecture.domain.croe.repo
 
+import com.kelin.architecture.domain.model.UserProfile
 import io.reactivex.Observable
 
 
@@ -13,5 +14,13 @@ import io.reactivex.Observable
  * **版本:** v 1.0.0
  */
 interface AuthRepo : Repo {
+    /**
+     * 刷新用户Token。
+     */
+    fun refreshToken():Observable<UserProfile>
+
+    /**
+     * 退出登录。
+     */
     fun logout(): Observable<Boolean>
 }

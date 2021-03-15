@@ -1,6 +1,7 @@
 package com.kelin.architecture
 
 import android.content.Context
+import com.kelin.architecture.ui.main.MainActivity
 
 /**
  * **描述:** 统一处理页面导航，方便日后维护。
@@ -16,13 +17,14 @@ object Navigator {
     /**
      * 跳转到主页。
      */
-    fun jumpToMain(context: Context) {
-
+    fun jumpToMain(context: Context, defIndex: Int = 0) {
+        MainActivity.start(context, defIndex)
     }
 
     /**
      * 跳转到登录页面。
      */
     fun jumpToAuth(context: Context) {
+        jumpToMain(context)
     }
 }

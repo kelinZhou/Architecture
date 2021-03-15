@@ -289,7 +289,7 @@ abstract class BasicActivity : AppCompatActivity() {
     }
 
 
-    protected fun replaceFragmentV4(containerViewId: Int, fragment: Fragment) {
+    protected fun replaceFragment(containerViewId: Int, fragment: Fragment) {
         val fragmentTransaction = this.supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(containerViewId, fragment, fragment.javaClass.simpleName)
         fragmentTransaction.setCustomAnimations(
@@ -303,7 +303,7 @@ abstract class BasicActivity : AppCompatActivity() {
 
 
     @JvmOverloads
-    protected fun pushFragmentV4(
+    protected fun pushFragment(
         containerViewId: Int,
         fragment: Fragment,
         tag: String = fragment.javaClass.simpleName
@@ -377,6 +377,10 @@ abstract class BasicActivity : AppCompatActivity() {
             return intent
         }
     }
+}
+
+fun Intent.start(context: Context) {
+    context.startActivity(this)
 }
 
 fun <D> Intent.startForResult(context: Activity, onResult: (resultCode: Int, data: D?) -> Unit) {

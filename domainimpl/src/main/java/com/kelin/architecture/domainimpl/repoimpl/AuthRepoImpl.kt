@@ -4,7 +4,9 @@ import android.content.Context
 import com.kelin.architecture.data.api.AuthApi
 import com.kelin.architecture.data.cache.dp.AppDatabase
 import com.kelin.architecture.domain.croe.repo.AuthRepo
+import com.kelin.architecture.domain.model.UserProfile
 import io.reactivex.Observable
+import java.lang.RuntimeException
 
 /**
  * **描述:** 用户相关的数据仓库实现。
@@ -18,6 +20,10 @@ import io.reactivex.Observable
 class AuthRepoImpl(context: Context, baseUrl: String) : AbsApi(context, baseUrl), AuthRepo {
 
     private val api by lazy { getApiService(AuthApi::class.java) }
+
+    override fun refreshToken(): Observable<UserProfile> {
+        return Observable.error(RuntimeException())
+    }
 
     override fun logout(): Observable<Boolean> {
         AppDatabase.userDao.clear()//清除缓存的用户信息

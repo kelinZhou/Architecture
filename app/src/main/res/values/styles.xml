@@ -1,14 +1,108 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/common_action_bar_style</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="common_action_bar_style" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="android:titleTextStyle">@style/TitleTextStyle</item>
+    </style>
+
+    <style name="TitleTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/grey_333</item>
+    </style>
+
+    <style name="AppTheme.Common">
+        <item name="windowActionModeOverlay">true</item>
+        <item name="colorControlNormal">@color/gray_ccc</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
+        <!--<item warehouseName="mp_colorAccent">@color/mp_colorAccent</item>-->
+        <item name="actionMenuTextColor">@color/common_text_black</item>  <!--menu字体颜色-->
+        <item name="selectableItemBackground" tools:ignore="PrivateResource">
+            @drawable/abc_item_background_holo_light
+        </item>
+        <item name="android:selectableItemBackground" tools:ignore="PrivateResource">
+            @drawable/abc_item_background_holo_light
+        </item>
+        <item name="android:windowBackground">@color/common_window_background</item>
+
+        <item name="popupTheme">@style/Widget.AppCompat.Light.PopupMenu.Overflow</item>
+        <item name="textAppearanceLargePopupMenu">@style/Theme.App.PopupMenuTextAppearanceLarge
+        </item>
+        <item name="android:textAppearanceLargePopupMenu">
+            @style/Theme.App.PopupMenuTextAppearanceLarge
+        </item>
+        <item name="android:tabWidgetStyle">@style/MyTabWidget</item>
+        <item name="buttonStyle">@style/buttonStyle</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+    </style>
+
+    <style name="AppTheme.Common.Activity">
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+    </style>
+
+    <style name="AppTheme.Common.Activity.Splash">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
+
+    <style name="OverflowMenuStyle" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:dropDownListViewStyle">@style/PopupMenuListView</item>
+
+        <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownWidth">wrap_content</item>
+        <!-- 弹出层背景颜色 -->
+        <item name="android:popupBackground">@color/white</item>
+        <!-- 设置弹出菜单文字颜色 -->
+        <item name="android:textColor">@color/common_text_black</item>
+        <!-- 弹出层垂直方向上的偏移，即在竖直方向上距离Toolbar的距离，值为负则会盖住Toolbar -->
+        <item name="android:dropDownVerticalOffset">2dp</item>
+        <!-- 弹出层水平方向上的偏移，即距离屏幕左边的距离，负值会导致右边出现空隙 -->
+        <item name="android:dropDownHorizontalOffset">-4dp</item>
+    </style>
+
+    <style name="PopupMenuListView" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:divider">@color/color_list_parting_line_bg</item>
+        <item name="android:dividerHeight">1px</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="buttonStyle" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/selector_theme_color_5r</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:minHeight">38dp</item>
+    </style>
 
+    <style name="MyTabWidget" parent="@android:style/Widget.DeviceDefault.TabWidget">
+        <item name="android:tabStripLeft">@null</item>
+        <item name="android:tabStripRight">@null</item>
+        <item name="android:tabStripEnabled">false</item>
+        <!--<item warehouseName="divider_vertical">?attr/dividerVertical</item>-->
+        <item name="android:divider">@null</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:dividerPadding">8dip</item>
+        <item name="android:measureWithLargestChild">true</item>
 
+    </style>
+
+    <style name="Theme.App.PopupMenuTextAppearanceLarge" parent="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 
     <style name="CommonWidgetDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -33,7 +127,6 @@
         <item name="android:windowEnterAnimation">@anim/anim_translate_y100_y0_300</item>
         <item name="android:windowExitAnimation">@anim/anim_translate_y0_y100_300</item>
     </style>
-
 
 
     <style name="BaseText">
@@ -194,4 +287,5 @@
 
     <color name="grey_666">#666666</color>
     <color name="grey_999">#999999</color>
+    <color name="gray_ccc">#CCCCCC</color>
 </resources>

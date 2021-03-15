@@ -17,6 +17,19 @@ import com.kelin.architecture.core.AppModule
 object StatisticsHelper {
 
     /**
+     * 统计的初始化，如果不是在Application的onCreate中调用的就必须在Application的onCreate中先调用```StatisticsHelper.preInit(this)```方法。
+     */
+    fun init(context: Context) {
+//        val env = EnvConfig.getEnv()
+//        UMConfigure.init(context, env.UM_APP_KEY, BuildConfig.CHANNEL, UMConfigure.DEVICE_TYPE_PHONE, "")
+//        UMConfigure.setLogEnabled(EnvConfig.IS_DEBUG)
+//        PlatformConfig.setWeixin(env.WE_CHAT_APP_ID, env.WE_CHAT_APP_SECRET)
+//        PlatformConfig.setWXFileProvider("${context.packageName}.fileProvider")
+//        PlatformConfig.setQQZone(env.QQ_APP_ID, env.QQ_APP_KEY)
+//        PlatformConfig.setQQFileProvider("${context.packageName}.fileProvider")
+    }
+
+    /**
      * 统计用户登录。
      */
     fun onProfileSignIn(context: Context, userId: String, type: SignInType) {

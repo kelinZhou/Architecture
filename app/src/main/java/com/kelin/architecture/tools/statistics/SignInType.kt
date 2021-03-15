@@ -10,5 +10,5 @@ package com.kelin.architecture.tools.statistics
  * **版本:** v 1.0.0
  */
 interface SignInType {
-    val signInType: String
+    val type: String
 }
