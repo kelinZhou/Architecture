@@ -61,6 +61,16 @@ android {
         multiDexEnabled true
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
     //打包自定义路径配置。
     android.applicationVariants.all {
         def channel = "yx-" + it.productFlavors[0].name.replace("yx-", "").split("-")[0]
