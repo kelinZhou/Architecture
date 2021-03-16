@@ -6,21 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import com.kelin.architecture.core.proxy.ProxyOwner
-import com.kelin.architecture.core.proxy.UnBounder
 import com.kelin.architecture.util.LogHelper
 import com.kelin.architecture.ui.base.BasicActivity
 import com.kelin.architecture.ui.base.BasicFragment
 import com.kelin.architecture.ui.base.delegate.BaseViewDelegate
 import com.kelin.architecture.ui.base.delegate.ViewDelegate
 import java.lang.reflect.ParameterizedType
-import java.util.ArrayList
 
 
 abstract class BaseFragmentPresenter<V : BaseViewDelegate<VC>, VC : BaseViewDelegate.BaseViewDelegateCallback> : BasicFragment(),
-    ViewPresenter<VC>, ProxyOwner {
-
-    private var proxies = ArrayList<UnBounder>()
+    ViewPresenter<VC> {
 
     protected var viewDelegate: V? = null
         private set
@@ -54,10 +49,6 @@ abstract class BaseFragmentPresenter<V : BaseViewDelegate<VC>, VC : BaseViewDele
                 }
             }
         }
-
-    override fun attachToOwner(proxy: UnBounder) {
-        proxies.add(proxy)
-    }
 
     protected open fun onCreateViewSelf(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         throw RuntimeException("${javaClass.simpleName}:must implement the Method in your derived class, because hasViewDelegate field of the derived class is false.")
@@ -137,16 +128,6 @@ abstract class BaseFragmentPresenter<V : BaseViewDelegate<VC>, VC : BaseViewDele
             this.mViewDelegateState = null
         }
         super.onDestroy()
-        unbindProxies()
-    }
-
-
-    private fun unbindProxies() {
-        if (proxies.isNotEmpty()) {
-            for (proxy in proxies) {
-                proxy.unbind()
-            }
-        }
     }
 
     private fun getSavedInstanceState(savedInstanceState: Bundle?): Bundle? {

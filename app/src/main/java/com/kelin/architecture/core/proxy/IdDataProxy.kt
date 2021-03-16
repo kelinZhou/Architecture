@@ -1,5 +1,7 @@
 package com.kelin.architecture.core.proxy
 
+import android.content.Context
+import androidx.lifecycle.LifecycleOwner
 import com.kelin.architecture.domain.croe.exception.ApiException
 import com.kelin.architecture.core.proxy.usecase.UseCase
 import com.kelin.architecture.util.ToastUtil
@@ -35,17 +37,35 @@ abstract class IdDataProxy<ID, D> : IdActionDataProxy<ID, D>() {
 
     protected open fun checkNetworkEnable(action: ActionParameter): Boolean = true
 
-    fun request(id: ID): Disposable? {
-        return super.request(defaultAction, id)
+    fun request(id: ID) {
+        super.request(defaultAction, id)
     }
 
-    fun bind(owner: ProxyOwner, callBack: IdDataCallback<ID, D>): IdDataProxy<ID, D> {
+    /**
+     * 将Proxy于声明周期绑定，由于绑定后将会减少垃圾的产生，所以通常情况下建议绑定。
+     * @param owner 声明周期拥有者，通常是Activity或Fragment。
+     * @param callBack 异步回调。
+     */
+    fun bind(owner: LifecycleOwner, callBack: IdDataCallback<ID, D>): IdDataProxy<ID, D> {
         super.bind(owner, callBack)
         return this
     }
 
-    fun bind(owner: ProxyOwner): IdDataProxy<ID, D> {
+    /**
+     * 将Proxy于声明周期绑定，由于绑定后将会减少垃圾的产生，所以通常情况下建议绑定。
+     * @param owner 声明周期拥有者，通常是Activity或Fragment。
+     */
+    fun bind(owner: LifecycleOwner): IdDataProxy<ID, D> {
         bind(owner, InnerCallback())
+        return this
+    }
+
+    /**
+     * 显示加载进度弹窗(loading弹窗)。
+     * @param context 可以显示Dialog的Context。
+     */
+    override fun progress(context: Context): IdDataProxy<ID, D> {
+        super.progress(context)
         return this
     }
 

@@ -1,12 +1,18 @@
 package com.kelin.architecture.core.proxy
 
+import android.content.Context
 import android.util.LruCache
 import android.util.SparseArray
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import com.kelin.architecture.core.proxy.subscriber.NetErrorHandler
 import com.kelin.architecture.core.proxy.usecase.UseCase
 import com.kelin.architecture.domain.croe.exception.ApiException
 import com.kelin.architecture.domain.croe.exception.ErrorWrapper
 import com.kelin.architecture.util.NetWorkStateUtil
+import com.kelin.architecture.util.StyleHelper
 import com.kelin.architecture.util.ToastUtil
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
@@ -21,7 +27,7 @@ import java.lang.Exception
  *
  * **版本:** v 1.0.0
  */
-abstract class IdActionDataProxy<ID, D> : UnBounder {
+abstract class IdActionDataProxy<ID, D> : LifecycleObserver {
 
     companion object {
         private const val CONSTANT_CACHE_KEY = 1
@@ -32,7 +38,10 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
         }
     }
 
-    var uncheckNetWork = false
+    private var context: Context? = null
+
+    private var uncheckNetWork = false
+
     private var noToast = false
 
     private val defaultRequestId = Any()
@@ -61,15 +70,17 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
      * @param action 动作，用来表示当前请求是如何触发的。
      * @param id 请求参数。
      */
-    fun request(action: ActionParameter, id: ID): Disposable? {
+    fun request(action: ActionParameter, id: ID) {
         isWorking = true
+        if (context != null) {
+            StyleHelper.showProgress(context)
+        }
         var e = checkPreCondition(id, action)
         val observer = createCallback(id, action)
         if (e != null) {
             observer.onError(e)
             observer.onComplete()
             observer.dispose()
-            return null
         }
 
         if (isExceedMaxErrorCount(id, action)) {
@@ -77,7 +88,6 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
             observer.onError(e)
             observer.onComplete()
             observer.dispose()
-            return null
         }
 
         @Suppress("unchecked_cast")
@@ -90,8 +100,7 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
         useCase.execute(observer)
 
         mSubscriptions.clearAllUnSubscribed()
-//        mSubscriptions.add(observer)
-        return null
+        mSubscriptions.add(observer)
     }
 
     private fun isExceedMaxErrorCount(id: ID, action: ActionParameter): Boolean {
@@ -132,7 +141,15 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
         }
     }
 
-    fun bind(owner: ProxyOwner, callBack: IdActionDataCallback<ID, ActionParameter, D>): IdActionDataProxy<ID, D> {
+    /**
+     * 将Proxy于声明周期绑定，由于绑定后将会减少垃圾的产生，所以通常情况下建议绑定。
+     * @param owner 声明周期拥有者，通常是Activity或Fragment。
+     * @param callBack 异步回调。
+     */
+    fun bind(
+        owner: LifecycleOwner,
+        callBack: IdActionDataCallback<ID, ActionParameter, D>
+    ): IdActionDataProxy<ID, D> {
         if (mGlobalCallback != null) {
             if (mGlobalCallback != callBack) {
                 unbind()
@@ -141,24 +158,46 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
         } else {
             mGlobalCallback = callBack
         }
-        owner.attachToOwner(this)
+        owner.lifecycle.addObserver(this)
         return this
     }
 
-    override fun unbind(thorough: Boolean) {
-        this.mGlobalCallback = null
+    /**
+     * 显示加载进度弹窗(loading弹窗)。
+     * @param context 可以显示Dialog的Context。
+     */
+    open fun progress(context: Context): IdActionDataProxy<ID, D> {
+        this.context = context
+        return this
+    }
 
-        if (thorough) {
+    private fun onHideProgress() {
+        if (context != null) {
+            StyleHelper.hideProgress(context)
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun destroy() {
+        context = null
+        unbind()
+    }
+
+
+    fun unbind() {
+        this.mGlobalCallback = null
+        if (!mSubscriptions.isDisposed()) {
             mSubscriptions.disposed()
-        } else {
-            mSubscriptions.clear()
         }
     }
 
     /**
      * 用户行为观察者
      */
-    internal inner class IdActionCaseSubscriber(private val id: ID, private val action: ActionParameter) : NetErrorHandler<D>() {
+    internal inner class IdActionCaseSubscriber(
+        private val id: ID,
+        private val action: ActionParameter
+    ) : NetErrorHandler<D>() {
 
         /**
          * 处理http权限错误
@@ -176,10 +215,12 @@ abstract class IdActionDataProxy<ID, D> : UnBounder {
         }
 
         override fun onError(ex: ApiException) {
+            onHideProgress()
             mGlobalCallback?.onFailed(id, action, ex)
         }
 
         override fun onSuccess(t: D) {
+            onHideProgress()
             try {
                 mGlobalCallback?.onSuccess(id, action, t)
             } catch (e: Exception) {

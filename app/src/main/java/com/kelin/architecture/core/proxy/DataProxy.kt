@@ -1,5 +1,7 @@
 package com.kelin.architecture.core.proxy
 
+import android.content.Context
+import androidx.lifecycle.LifecycleOwner
 import com.kelin.architecture.core.proxy.usecase.UseCase
 import com.kelin.architecture.domain.croe.exception.ApiException
 import io.reactivex.disposables.Disposable
@@ -35,30 +37,59 @@ abstract class DataProxy<D> : IdActionDataProxy<Any, D>() {
 
     protected open fun checkNetworkEnable(): Boolean = true
 
-    fun request(): Disposable? {
-        return super.request(defaultAction, defaultId)
+    /**
+     * 发起请求。
+     */
+    fun request(){
+        super.request(defaultAction, defaultId)
     }
 
-    fun bind(owner: ProxyOwner, callBack: DataCallback<D>): DataProxy<D> {
+    /**
+     * 将Proxy于声明周期绑定，由于绑定后将会减少垃圾的产生，所以通常情况下建议绑定。
+     * @param owner 声明周期拥有者，通常是Activity或Fragment。
+     * @param callBack 异步回调。
+     */
+    fun bind(owner: LifecycleOwner, callBack: DataCallback<D>): DataProxy<D> {
         super.bind(owner, callBack)
         return this
     }
 
-    fun bind(owner: ProxyOwner): DataProxy<D> {
+    /**
+     * 将Proxy于声明周期绑定，由于绑定后将会减少垃圾的产生，所以通常情况下建议绑定。
+     * @param owner 声明周期拥有者，通常是Activity或Fragment。
+     */
+    fun bind(owner: LifecycleOwner): DataProxy<D> {
         bind(owner, InnerCallback())
         return this
     }
 
+    /**
+     * 显示加载进度弹窗(loading弹窗)。
+     * @param context 可以显示Dialog的Context。
+     */
+    override fun progress(context: Context): DataProxy<D> {
+        super.progress(context)
+        return this
+    }
+
+    /**
+     * 设置成功回调。
+     * @param onSuccess 回调函数，当异步任务成功后将会调用该回调函数。
+     */
     fun onSuccess(onSuccess: (data: D) -> Unit): DataProxy<D> {
-        if (mGlobalCallback != null && mGlobalCallback is InnerCallback) {
+        if (mGlobalCallback != null && mGlobalCallback !is InnerCallback) { //如果调用过bind方法则直接为其success成员赋值。
             (mGlobalCallback as InnerCallback).success = onSuccess
-        } else {
+        } else {  //如果还没有调用过bind方法则默认设置单次回调，即回调一次后就丢弃用户设置的回调。如果再次调用request方法则无法继续监听到回调。
             mGlobalCallback = SingleCallback()
             (mGlobalCallback as SingleCallback).success = onSuccess
         }
         return this
     }
 
+    /**
+     * 设置失败回调。
+     * @param onFailed 回调函数，当异步任务失败后将会调用该回调函数。
+     */
     fun onFailed(onFailed: (e: ApiException) -> Unit): DataProxy<D> {
         if (mGlobalCallback != null && mGlobalCallback is InnerCallback) {
             (mGlobalCallback as InnerCallback).failed = onFailed

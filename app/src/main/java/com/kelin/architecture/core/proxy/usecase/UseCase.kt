@@ -16,13 +16,13 @@ import io.reactivex.schedulers.Schedulers
  */
 abstract class UseCase<DATA> {
 
-    private var subscription = Observable.empty<DATA>()
+    private val subscription: Observable<DATA>
+        get() = this.buildUseCaseObservable()
 
 
     protected abstract fun buildUseCaseObservable(): Observable<DATA>
 
     fun execute(observer: Observer<DATA>) {
-        this.subscription = this.buildUseCaseObservable()
         subscription.subscribeOn(Schedulers.from(API.provideThreadExecutor))
             .observeOn(API.postExecutionThread.scheduler)
             .subscribe(observer)

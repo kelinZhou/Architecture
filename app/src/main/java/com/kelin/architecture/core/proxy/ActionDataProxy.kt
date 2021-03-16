@@ -1,5 +1,7 @@
 package com.kelin.architecture.core.proxy
 
+import android.content.Context
+import androidx.lifecycle.LifecycleOwner
 import com.kelin.architecture.core.proxy.usecase.UseCase
 import com.kelin.architecture.domain.croe.exception.ApiException
 import io.reactivex.disposables.Disposable
@@ -34,20 +36,42 @@ abstract class ActionDataProxy<D> : IdActionDataProxy<Any, D>() {
 
     protected open fun checkNetworkEnable(action: ActionParameter): Boolean = true
 
-    fun request(action: ActionParameter): Disposable? {
-        return super.request(action, defaultRequestId)
+    fun request(action: ActionParameter) {
+        super.request(action, defaultRequestId)
     }
 
-    fun bind(owner: ProxyOwner, callBack: ActionDataCallback<ActionParameter, D>): ActionDataProxy<D> {
+    /**
+     * 将Proxy于声明周期绑定，由于绑定后将会减少垃圾的产生，所以通常情况下建议绑定。
+     * @param owner 声明周期拥有者，通常是Activity或Fragment。
+     * @param callBack 异步回调。
+     */
+    fun bind(owner: LifecycleOwner, callBack: ActionDataCallback<ActionParameter, D>): ActionDataProxy<D> {
         super.bind(owner, callBack)
         return this
     }
 
-    fun bind(owner: ProxyOwner): ActionDataProxy<D> {
+    /**
+     * 将Proxy于声明周期绑定，由于绑定后将会减少垃圾的产生，所以通常情况下建议绑定。
+     * @param owner 声明周期拥有者，通常是Activity或Fragment。
+     */
+    fun bind(owner: LifecycleOwner): ActionDataProxy<D> {
         bind(owner, InnerCallback())
         return this
     }
 
+    /**
+     * 显示加载进度弹窗(loading弹窗)。
+     * @param context 可以显示Dialog的Context。
+     */
+    override fun progress(context: Context): ActionDataProxy<D> {
+        super.progress(context)
+        return this
+    }
+
+    /**
+     * 设置成功回调。
+     * @param onSuccess 回调函数，当异步任务成功后将会调用该回调函数。
+     */
     fun onSuccess(onSuccess: (data: D) -> Unit): ActionDataProxy<D> {
         if (mGlobalCallback != null && mGlobalCallback is InnerCallback) {
             (mGlobalCallback as InnerCallback).success = onSuccess
@@ -58,6 +82,10 @@ abstract class ActionDataProxy<D> : IdActionDataProxy<Any, D>() {
         return this
     }
 
+    /**
+     * 设置失败回调。
+     * @param onFailed 回调函数，当异步任务失败后将会调用该回调函数。
+     */
     fun onFailed(onFailed: (e: ApiException) -> Unit): ActionDataProxy<D> {
         if (mGlobalCallback != null && mGlobalCallback is InnerCallback) {
             (mGlobalCallback as InnerCallback).failed = onFailed
