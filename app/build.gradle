@@ -59,6 +59,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
+
+        vectorDrawables.useSupportLibrary = true
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi'
+        }
     }
 
     androidExtensions {
@@ -155,5 +162,8 @@ dependencies {
     implementation 'com.github.kelinZhou:Banner:2.7.1'
     //事件总线
     implementation 'org.greenrobot:eventbus:3.1.1'
+    //glide图片加载
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
 
 }

@@ -22,4 +22,5 @@
     <color name="grey_bg_F7F7F7">#F7F7F7</color>
     <color name="grey_F3">#F3F3F3</color>
     <color name="grey_333">#333333</color>
+    <color name="transparent">#00000000</color>
 </resources>

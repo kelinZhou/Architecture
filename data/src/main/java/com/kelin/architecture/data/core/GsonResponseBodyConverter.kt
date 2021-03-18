@@ -4,7 +4,6 @@ package com.kelin.architecture.data.core
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.google.gson.JsonSyntaxException
-import com.kelin.architecture.data.apidata.ApiResponseCode
 import com.kelin.architecture.data.util.LogHelper
 import com.kelin.architecture.domain.croe.exception.ApiException
 

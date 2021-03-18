@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="FormLayout">
+        <!--分隔线位置的百分比，可输入0到1的小数，0表示0%，1表示100%-->
+        <attr name="layoutGuidelinePercent" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="FormView">
+        <!--分隔线位置的百分比，可输入0到1的小数，0表示0%，1表示100%-->
+        <attr name="guidelinePercent" format="float" />
+        <!--是否不显示底部的分隔线-->
+        <attr name="noPartingLine" format="boolean" />
+        <!--导航图标-->
+        <attr name="navigationIcon" format="reference" />
+        <!--是否可编辑,如果不设置将根据是否有navigationIcon判断。-->
+        <attr name="editable" format="boolean" />
+        <!--是否是必填字段-->
+        <attr name="requiredField" format="boolean" />
+        <!--表单字段名称-->
+        <attr name="fieldName" format="string" />
+        <!--表单字段的值-->
+        <attr name="fieldValue" format="string" />
+        <!--表单字段值的文字颜色-->
+        <attr name="fieldValueColor" format="color" />
+        <!--表单字段值的文字大小-->
+        <attr name="fieldValueSize" format="dimension" />
+        <!--表单字段值的单位-->
+        <attr name="fieldUnit" format="string" />
+        <!--表单字段值的单位的文字颜色-->
+        <attr name="fieldUnitColor" format="color" />
+        <!--表单字段的内容提示-->
+        <attr name="android:hint" />
+        <!--输入类型，只有在没设置navigationIcon的情况下该设置才有效。-->
+        <attr name="android:inputType" />
+        <!--最大输入长度，只有在没设置navigationIcon的情况下该设置才有效。-->
+        <attr name="android:maxLength" />
+        <!--文字计数器是否可用-->
+        <attr name="counterEnable" format="boolean" />
+        <!--小数格式化，格式为：整数部分长度,小数部分长度；例如：12,3-->
+        <attr name="decimalFormat" format="string" />
+        <!--是否垂直居中-->
+        <attr name="centerVertical" format="boolean" />
+        <!--键盘类型，编辑模式下默认弹出的键盘类型，inputType的扩展功能-->
+        <attr name="keyType" format="flags">
+            <!--英文字母小写-->
+            <flag name="small_letter" value="0x11" />
+            <!--英文字母大写-->
+            <flag name="capital_letter" value="0x21" />
+            <!--英文字母加数字，默认弹出英文键盘-->
+            <flag name="letter_number" value="0x31" />
+            <!--英文字母小写加数字，默认弹出英文键盘-->
+            <flag name="small_letter_number" value="0x41" />
+            <!--英文字母大写加数字，默认弹出英文键盘-->
+            <flag name="capital_letter_number" value="0x51" />
+            <!--数字加英文字母，默认弹出数字键盘-->
+            <flag name="number_letter" value="0x33" />
+            <!--数字加英文字母小写，默认弹出数字键盘-->
+            <flag name="number_small_letter" value="0x43" />
+            <!--数字加英文字母大写，默认弹出数字键盘-->
+            <flag name="number_capital_letter" value="0x53" />
+        </attr>
+        <!--聪明的hint是否可用，当可用时会根据fieldName的值自动设置hint。-->
+        <attr name="smartHintEnable" format="boolean" />
+        <!--聪明的背景色是否可用，当可用时会根据是否可编辑的状态自动设置背景色。-->
+        <attr name="smartBackgroundEnable" format="boolean" />
+        <!--设置ICON图标-->
+        <attr name="android:drawableStart" />
+        <!--设置Icon图标的间距-->
+        <attr name="android:drawablePadding" />
+        <!--设置值的gravity属性-->
+        <attr name="valueGravity" format="enum">
+            <!--靠左-->
+            <enum name="start" value="0x01" />
+            <!--居中-->
+            <enum name="center" value="0x02" />
+            <!--靠右-->
+            <enum name="end" value="0x03" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="VerticalSwitcherTextView">
+        <attr name="android:text" />
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+        <attr name="android:gravity" />
+        <!--每次滚动的间隔时间-->
+        <attr name="intervalDuration" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="RichTextView">
+        <!--设置查看更多的提示文本-->
+        <attr name="seeMoreText" format="string" />
+        <!--设置查看更多的提示文本的字体颜色-->
+        <attr name="seeMoreTextColor" format="color|string" />
+        <!--设置查看更多的提示文本的字体大小-->
+        <attr name="seeMoreTextSize" format="dimension" />
+        <!--设置查看更多文本的内边距-->
+        <attr name="seeMoreTextPadding" format="dimension" />
+        <!--设置查看更多的提示文本的字体样式-->
+        <attr name="seeMoreTextStyle" format="flags">
+            <!--加粗-->
+            <flag name="bold" value="0x10" />
+            <!--斜体-->
+            <flag name="italic" value="0x11" />
+            <!--加粗且斜体-->
+            <flag name="bold_italic" value="0x12" />
+            <!--加粗且带下划线-->
+            <flag name="bold_underline" value="0x13" />
+            <!--斜体且带下划线-->
+            <flag name="italic_underline" value="0x14" />
+            <!--斜体、加粗且带下划线-->
+            <flag name="italic_underline_bold" value="0x15" />
+        </attr>
+        <!--是否是通过点击整个View触发查看更多-->
+        <attr name="clickViewSeeMore" format="boolean" />
+        <!--文本资源文件ID-->
+        <attr name="textRawResId" format="reference" />
+    </declare-styleable>
+</resources>

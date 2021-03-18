@@ -1,4 +1,4 @@
-package com.kelin.architecture.data.apidata
+package com.kelin.architecture.data.core
 
 import com.google.gson.annotations.SerializedName
 

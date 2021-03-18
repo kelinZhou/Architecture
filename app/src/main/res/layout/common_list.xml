@@ -5,10 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kelin.architecture.widget.statelayout.FixedRecyclerView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@null"/>
+    <include layout="@layout/common_list_no_refresh" />
 </com.kelin.architecture.widget.FixedRefreshLayout>
 
